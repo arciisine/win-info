@@ -25,6 +25,10 @@ interface Rect {
 
 interface Screen extends Rect {
   index: number;
+  scale: {
+    x: number;
+    y: number;
+  }
 }
 
 /**
@@ -90,7 +94,7 @@ function lineToScreen(line: string, index: number): Screen {
   const [id, state, primaryOrRes, res, ...remaining] = line.split(' ');
   const finalRes = primaryOrRes === 'primary' ? res : primaryOrRes;
   const [width, height, x, y] = finalRes.split(/[+x]/).map(v => parseInt(v, 10));
-  return { index, width, height, x, y };
+  return { index, width, height, x, y, scale: { x: 1, y: 1 } };
 }
 
 /**

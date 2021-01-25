@@ -11,10 +11,10 @@ namespace WinInfo
   public class ScreenInfo
   {
     public string Availability;
-    public string ScreenHeight;
-    public string ScreenWidth;
+    public RECT Size;
     public RECT MonitorArea;
     public RECT WorkArea;
+    public double[] Scale;
     public int Index;
   }
   
@@ -100,9 +100,13 @@ namespace WinInfo
           continue;
         }
 
+        RECT size = new RECT();
+        size.Right = mi.monitor.Right - mi.monitor.Left;
+        size.Bottom = mi.monitor.Bottom - mi.monitor.Top;
+
         ScreenInfo di = new ScreenInfo();
-        di.ScreenWidth = (mi.monitor.Right - mi.monitor.Left).ToString();
-        di.ScreenHeight = (mi.monitor.Bottom - mi.monitor.Top).ToString();
+        di.Size = size;
+        di.Scale = mi.scale;
         di.MonitorArea = mi.monitor;
         di.WorkArea = mi.work;
         di.Availability = mi.flags.ToString();

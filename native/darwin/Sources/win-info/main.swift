@@ -2,9 +2,27 @@ import AppKit
 
 extension String: Error {}
 
-func getScreens(bounds: CGRect) -> [(index:Int, bounds:CGRect)]? {
+func getHighestResolution(id: CGDirectDisplayID) -> (width:Int, height:Int) {
+    var width: Int = 0;
+    var height: Int = 0;
+
+    let modes = CGDisplayCopyAllDisplayModes(id, nil)
+    let modesCount = CFArrayGetCount(modes) - 1
+
+    for i in 0...modesCount {
+        let mode: CGDisplayMode = unsafeBitCast(CFArrayGetValueAtIndex(modes, i), to: CGDisplayMode.self)
+
+        if (mode.width > width && mode.height > height) {
+          width = mode.width;
+          height = mode.height;
+        }
+    }
+    return (width: width, height: height);
+}
+
+func getScreens(bounds: CGRect) -> [(index:Int, bounds:CGRect, native:(width:Int, height:Int))]? {
     var index = 0
-    var out: [(index:Int, bounds:CGRect)] = [];
+    var out: [(index:Int, bounds:CGRect, native:(width:Int, height:Int))] = [];
     for screen in NSScreen.screens
     {
       let displayID = screen.deviceDescription[NSDeviceDescriptionKey("NSScreenNumber")] as! uint;
@@ -12,7 +30,8 @@ func getScreens(bounds: CGRect) -> [(index:Int, bounds:CGRect)]? {
 
       if (screenFrame.intersects(bounds))
       {
-        out.append((index: index, bounds: screenFrame))
+        let size = getHighestResolution(id: displayID);
+        out.append((index: index, bounds: screenFrame, native: size))
       }
       index += 1
     }
@@ -74,19 +93,23 @@ func getConfig(pid: pid_t) throws -> String {
   "title": "\(window[kCGWindowName as String] as? String ?? "")",
   "id": \(window[kCGWindowNumber as String] as! Int),
   "bounds": {
-    "x": \(bounds.origin.x),
-    "y": \(bounds.origin.y),
-    "width": \(bounds.width),
-    "height": \(bounds.height)
+    "x": \(Int(bounds.origin.x)),
+    "y": \(Int(bounds.origin.y)),
+    "width": \(Int(bounds.width)),
+    "height": \(Int(bounds.height))
   },
   "screens": [\(screens!.map {
     """
     {	
-      "x": \($0.bounds.minX),
-      "y": \($0.bounds.minY),
-      "width": \($0.bounds.width),
-      "height": \($0.bounds.height),
-      "index": \($0.index)
+      "x": \(Int($0.bounds.minX)),
+      "y": \(Int($0.bounds.minY)),
+      "width": \(Int($0.bounds.width)),
+      "height": \(Int($0.bounds.height)),
+      "index": \(Int($0.index)),
+      "scale": {
+        "x": \(Double($0.native.width)/Double($0.bounds.width)),
+        "y: \(Double($0.native.height)/Double($0.bounds.height))
+      }
     }
     """
   } .joined(separator: ","))

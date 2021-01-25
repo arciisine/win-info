@@ -26,11 +26,15 @@ namespace WinInfo
           ""y"": {1},
           ""width"": {2},
           ""height"": {3},
-          ""index"": {4}
+          ""index"": {4},
+          ""scale"": {{
+            ""x"": {5:0.00},
+            ""y"": {6:0.00},
+          }}
         }}", 
           screen.WorkArea.Left, screen.WorkArea.Top, 
           screen.WorkArea.Right - screen.WorkArea.Left, screen.WorkArea.Bottom - screen.WorkArea.Top,
-          screen.Index
+          screen.Index, screen.Scale[0], screen.Scale[1]
           )));        
 
        return  String.Format(@"{{

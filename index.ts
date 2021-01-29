@@ -16,6 +16,10 @@ export interface Rect {
 
 export interface Screen extends Rect {
   index: number;
+  scale: {
+    x: number;
+    y: number;
+  }
 }
 
 export interface Response {

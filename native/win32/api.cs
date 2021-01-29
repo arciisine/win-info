@@ -235,11 +235,6 @@ namespace WinInfo
         }, 
         IntPtr.Zero );
 
-      foreach (MonitorInfo info in col) 
-      {
-          Console.WriteLine($"Device: {info.deviceName}");
-          Console.WriteLine();
-      }
       return col;
     }
   }

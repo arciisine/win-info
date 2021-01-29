@@ -20,7 +20,7 @@
 		"move-darwin": "mv native/darwin/.build/release/win-info bin/win-info-darwin",
 		"build-darwin": "npm run compile-darwin && npm run move-darwin",
 		"compile": "tsc; mkdir bin; npm run build-x11 && npm run build-darwin && npm run build-win32",
-		"prepublish": "npm run compile"
+		"prepack": "npm run compile"
 	},
 	"maintainers": [
 		{

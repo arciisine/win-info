@@ -29,7 +29,7 @@ namespace WinInfo
           ""index"": {4},
           ""scale"": {{
             ""x"": {5:0.00},
-            ""y"": {6:0.00},
+            ""y"": {6:0.00}
           }}
         }}", 
           screen.WorkArea.Left, screen.WorkArea.Top, 

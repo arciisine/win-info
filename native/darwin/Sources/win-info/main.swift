@@ -108,7 +108,7 @@ func getConfig(pid: pid_t) throws -> String {
       "index": \(Int($0.index)),
       "scale": {
         "x": \(Double($0.native.width)/Double($0.bounds.width)),
-        "y: \(Double($0.native.height)/Double($0.bounds.height))
+        "y": \(Double($0.native.height)/Double($0.bounds.height))
       }
     }
     """

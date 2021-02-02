@@ -1,6 +1,6 @@
 {
 	"name": "@arcsine/win-info",
-	"version": "0.2.7",
+	"version": "0.2.8",
 	"description": "Get metadata about a program window (title, id, bounds, screens, owner, etc). Works on macOS, X11-based Desktops (Linux, BSD), Windows.",
 	"license": "MIT",
 	"repository": "arciisine/win-info",

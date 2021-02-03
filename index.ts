@@ -42,7 +42,7 @@ function parseJSON(text: string) {
   try {
     return JSON.parse(text);
   } catch (error) {
-    console.error(error);
+    console.error(`${error.message}: \n${text}`);
     throw new Error('Error parsing data');
   }
 }

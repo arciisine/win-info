@@ -1,20 +1,20 @@
 {
 	"name": "@arcsine/win-info",
-	"version": "0.2.9",
+	"version": "0.2.11",
 	"description": "Get metadata about a program window (title, id, bounds, screens, owner, etc). Works on macOS, X11-based Desktops (Linux, BSD), Windows.",
 	"license": "MIT",
 	"repository": "arciisine/win-info",
 	"author": {
 		"name": "Timothy Soehnlin",
 		"email": "timothy.soehnlin@gmail.com",
-		"url": "github.com/arciisine"
+		"url": "https://github.com/arciisine"
 	},
 	"engines": {
 		"node": ">=8"
 	},
 	"scripts": {
 		"test": "ava",
-		"build-win32": "csc native/win32/*.cs -Out:bin/win-info-win32.exe",
+		"build-win32": "mcs native/win32/*.cs -r:System.Windows.Forms.dll -Out:bin/win-info-win32.exe",
 		"build-x11": "cd native/x11/ && npx tsc",
 		"compile-darwin": "swift build --package-path=native/darwin --configuration=release --static-swift-stdlib",
 		"move-darwin": "mv native/darwin/.build/release/win-info bin/win-info-darwin",
@@ -70,7 +70,7 @@
 	],
 	"devDependencies": {
 		"@types/node": "^10.12.18",
-		"ava": "^0.25.0",
-		"typescript": "^3.2.4"
+		"ava": "^3.15.0",
+		"typescript": "^4.3.4"
 	}
 }

@@ -217,17 +217,17 @@ namespace WinInfo
       EnumDisplayMonitors( IntPtr.Zero, IntPtr.Zero, delegate (IntPtr hMonitor, IntPtr hdcMonitor, ref RECT lprcMonitor, IntPtr dwData) {
           MonitorInfoInternal mii = new MonitorInfoInternal();
           mii.size = (uint)Marshal.SizeOf( mii );
-          bool success = GetMonitorInfo(hMonitor, ref mii);
+          bool success = GetMonitorInfo(hMonitor, ref mii);        
           checkError(success);
-          if (success) {
+          if (success) {         
             MonitorInfo mi = new MonitorInfo();
             mi.monitor = mii.monitor;
             mi.work = mii.work;
             mi.flags = mii.flags;
             mi.deviceName = mii.deviceName;
             mi.scale = new double[] {
-              (double)nativeSize[mii.deviceName].Right / (double)mi.monitor.Right,
-              (double)nativeSize[mii.deviceName].Bottom / (double)mi.monitor.Bottom
+              (double)nativeSize[mii.deviceName].Right / ((double)mi.monitor.Right - (double)mi.monitor.Left),
+              (double)nativeSize[mii.deviceName].Bottom / ((double)mi.monitor.Bottom - (double)mi.monitor.Top)
             };
             col.Add(mi);
           }          

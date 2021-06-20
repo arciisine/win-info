@@ -5,7 +5,10 @@ import * as path from 'path';
 export type Platform =
   'win32' |
   'darwin' |
-  'linux' | 'freebsd' | 'openbsd' | 'sunos';
+  'linux' |
+  'freebsd' |
+  'openbsd' |
+  'sunos';
 
 export interface Rect {
   x: number;
@@ -47,17 +50,17 @@ function parseJSON(text: string) {
   }
 }
 
-const EXEC_MAP: { [key: string]: string } = {
-  win32: 'win-info-win32.exe',
-  linux: 'win-info-x11.js',
-  freebsd: 'win-info-x11.js',
-  sunos: 'win-info-x11.js',
-  openbsd: 'win-info-x11.js',
-  darwin: 'win-info-darwin'
+const EXEC_MAP: { [key: string]: () => string } = {
+  win32: () => 'win-info-win32.exe',
+  linux: () => 'win-info-x11.js',
+  freebsd: () => 'win-info-x11.js',
+  sunos: () => 'win-info-x11.js',
+  openbsd: () => 'win-info-x11.js',
+  darwin: () => 'win-info-darwin'
 };
 
 function getCmdWithArgs(arg?: string | number, platform?: string) {
-  let cmd: string = EXEC_MAP[platform || process.platform];
+  let cmd: string = EXEC_MAP[platform || process.platform]();
 
   if (!cmd) {
     throw new Error('macOS, Windows and X11 platforms only');

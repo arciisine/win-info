@@ -16,6 +16,7 @@ namespace WinInfo
       List<ScreenInfo> screens
     ) { 
 
+      System.Threading.Thread.CurrentThread.CurrentCulture = System.Globalization.CultureInfo.InvariantCulture;
 
       string screenData = 
         String.Join(",\n",

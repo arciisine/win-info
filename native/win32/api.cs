@@ -66,7 +66,7 @@ namespace WinInfo
     public int dmFields;
     public int dmPositionX;
     public int dmPositionY;
-    public ScreenOrientation dmDisplayOrientation;
+    // public ScreenOrientation dmDisplayOrientation;
     public int dmDisplayFixedOutput;
     public short dmColor;
     public short dmDuplex;
@@ -198,44 +198,44 @@ namespace WinInfo
       }
     }
 
-    public static List<MonitorInfo> getMonitors() {
-      const int ENUM_CURRENT_SETTINGS = -1;
+    // public static List<MonitorInfo> getMonitors() {
+    //   const int ENUM_CURRENT_SETTINGS = -1;
 
-      Dictionary<string, RECT> nativeSize = new Dictionary<string, RECT>();
-      foreach (Screen screen in Screen.AllScreens)
-      {
-          DEVMODE dm = new DEVMODE();
-          dm.dmSize = (short)Marshal.SizeOf(typeof(DEVMODE));
-          EnumDisplaySettings(screen.DeviceName, ENUM_CURRENT_SETTINGS, ref dm);
-          RECT r = new RECT();
-          r.Right = dm.dmPelsWidth;
-          r.Bottom = dm.dmPelsHeight;
-          nativeSize[screen.DeviceName] = r;
-      }
+    //   Dictionary<string, RECT> nativeSize = new Dictionary<string, RECT>();
+    //   foreach (Screen screen in Screen.AllScreens)
+    //   {
+    //       DEVMODE dm = new DEVMODE();
+    //       dm.dmSize = (short)Marshal.SizeOf(typeof(DEVMODE));
+    //       EnumDisplaySettings(screen.DeviceName, ENUM_CURRENT_SETTINGS, ref dm);
+    //       RECT r = new RECT();
+    //       r.Right = dm.dmPelsWidth;
+    //       r.Bottom = dm.dmPelsHeight;
+    //       nativeSize[screen.DeviceName] = r;
+    //   }
 
-      List<MonitorInfo> col = new List<MonitorInfo>();
-      EnumDisplayMonitors( IntPtr.Zero, IntPtr.Zero, delegate (IntPtr hMonitor, IntPtr hdcMonitor, ref RECT lprcMonitor, IntPtr dwData) {
-          MonitorInfoInternal mii = new MonitorInfoInternal();
-          mii.size = (uint)Marshal.SizeOf( mii );
-          bool success = GetMonitorInfo(hMonitor, ref mii);        
-          checkError(success);
-          if (success) {         
-            MonitorInfo mi = new MonitorInfo();
-            mi.monitor = mii.monitor;
-            mi.work = mii.work;
-            mi.flags = mii.flags;
-            mi.deviceName = mii.deviceName;
-            mi.scale = new double[] {
-              (double)nativeSize[mii.deviceName].Right / ((double)mi.monitor.Right - (double)mi.monitor.Left),
-              (double)nativeSize[mii.deviceName].Bottom / ((double)mi.monitor.Bottom - (double)mi.monitor.Top)
-            };
-            col.Add(mi);
-          }          
-          return true;
-        }, 
-        IntPtr.Zero );
+    //   List<MonitorInfo> col = new List<MonitorInfo>();
+    //   EnumDisplayMonitors( IntPtr.Zero, IntPtr.Zero, delegate (IntPtr hMonitor, IntPtr hdcMonitor, ref RECT lprcMonitor, IntPtr dwData) {
+    //       MonitorInfoInternal mii = new MonitorInfoInternal();
+    //       mii.size = (uint)Marshal.SizeOf( mii );
+    //       bool success = GetMonitorInfo(hMonitor, ref mii);        
+    //       checkError(success);
+    //       if (success) {         
+    //         MonitorInfo mi = new MonitorInfo();
+    //         mi.monitor = mii.monitor;
+    //         mi.work = mii.work;
+    //         mi.flags = mii.flags;
+    //         mi.deviceName = mii.deviceName;
+    //         mi.scale = new double[] {
+    //           (double)nativeSize[mii.deviceName].Right / ((double)mi.monitor.Right - (double)mi.monitor.Left),
+    //           (double)nativeSize[mii.deviceName].Bottom / ((double)mi.monitor.Bottom - (double)mi.monitor.Top)
+    //         };
+    //         col.Add(mi);
+    //       }          
+    //       return true;
+    //     }, 
+    //     IntPtr.Zero );
 
-      return col;
-    }
+    //   return col;
+    // }
   }
 }     

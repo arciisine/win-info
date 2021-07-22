@@ -8,15 +8,15 @@ using System.Runtime.InteropServices;
 namespace WinInfo
 {
 
-  public class ScreenInfo
-  {
-    public string Availability;
-    public RECT Size;
-    public RECT MonitorArea;
-    public RECT WorkArea;
-    public double[] Scale;
-    public int Index;
-  }
+  // public class ScreenInfo
+  // {
+  //   public string Availability;
+  //   public RECT Size;
+  //   public RECT MonitorArea;
+  //   public RECT WorkArea;
+  //   public double[] Scale;
+  //   public int Index;
+  // }
   
   public class Utils 
   {   
@@ -91,34 +91,34 @@ namespace WinInfo
         parent.Top <= child.Bottom && child.Top <= parent.Bottom;
     }
 
-    public static List<ScreenInfo> getScreens(RECT bounds) {
-      List<ScreenInfo> col = new List<ScreenInfo>();
-      int i = 0;
+    // public static List<ScreenInfo> getScreens(RECT bounds) {
+    //   List<ScreenInfo> col = new List<ScreenInfo>();
+    //   int i = 0;
 
-      foreach (MonitorInfo mi in WinApi.getMonitors()) {
-        if (!Utils.contains(mi.work, bounds)) {
-          continue;
-        }
+    //   foreach (MonitorInfo mi in WinApi.getMonitors()) {
+    //     if (!Utils.contains(mi.work, bounds)) {
+    //       continue;
+    //     }
 
-        RECT size = new RECT();
-        size.Right = mi.monitor.Right - mi.monitor.Left;
-        size.Bottom = mi.monitor.Bottom - mi.monitor.Top;
+    //     RECT size = new RECT();
+    //     size.Right = mi.monitor.Right - mi.monitor.Left;
+    //     size.Bottom = mi.monitor.Bottom - mi.monitor.Top;
 
-        ScreenInfo di = new ScreenInfo();
-        di.Size = size;
-        di.Scale = mi.scale;
-        di.MonitorArea = mi.monitor;
-        di.WorkArea = mi.work;
-        di.Availability = mi.flags.ToString();
-        di.Index = i++;
-        col.Add(di);
-      }
+    //     ScreenInfo di = new ScreenInfo();
+    //     di.Size = size;
+    //     di.Scale = mi.scale;
+    //     di.MonitorArea = mi.monitor;
+    //     di.WorkArea = mi.work;
+    //     di.Availability = mi.flags.ToString();
+    //     di.Index = i++;
+    //     col.Add(di);
+    //   }
 
-      if (col.Count == 0) {
-        throw new Exception("Screens not found");
-      }
+    //   if (col.Count == 0) {
+    //     throw new Exception("Screens not found");
+    //   }
 
-      return col;
-    }
+    //   return col;
+    // }
   }
 }

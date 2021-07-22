@@ -17,19 +17,19 @@ export interface Rect {
   height: number;
 }
 
-export interface Screen extends Rect {
-  index: number;
-  scale: {
-    x: number;
-    y: number;
-  }
-}
+// export interface Screen extends Rect {
+//   index: number;
+//   scale: {
+//     x: number;
+//     y: number;
+//   }
+// }
 
 export interface Response {
   title: string;
   id: number;
   bounds: Rect;
-  screens: Screen[];
+  // screens: Screen[];
   owner: {
     name: string;
     processId: number;

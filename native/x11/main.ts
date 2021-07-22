@@ -100,20 +100,20 @@ function lineToScreen(line: string, index: number): Screen {
 /**
  * Find any screen that intersects with the bounds
  */
-async function getScreens(bounds: Rect): Promise<Screen[]> {
-  const { stdout } = await execFile(xrandrBin, xrandrArgs);
+// async function getScreens(bounds: Rect): Promise<Screen[]> {
+//   const { stdout } = await execFile(xrandrBin, xrandrArgs);
 
-  const out = stdout.split('\n') // Lines
-    .filter(x => x.includes('connected')) // Only screens
-    .map(lineToScreen) // Convert
-    .filter(x => intersects(x, bounds)); // Only overlapping
+//   const out = stdout.split('\n') // Lines
+//     .filter(x => x.includes('connected')) // Only screens
+//     .map(lineToScreen) // Convert
+//     .filter(x => intersects(x, bounds)); // Only overlapping
 
-  if (out.length === 0) {
-    throw new Error('No matching screens');
-  }
+//   if (out.length === 0) {
+//     throw new Error('No matching screens');
+//   }
 
-  return out;
-}
+//   return out;
+// }
 
 /**
  * Get bounds of a window
@@ -157,15 +157,15 @@ async function main(pid: string) {
     getBounds(id)
   ]);
 
-  const screens = await getScreens(bounds);
+  // const screens = await getScreens(bounds);
 
-  if (!screens.length) {
-    throw new Error('No screens detected');
-  }
+  // if (!screens.length) {
+  //   throw new Error('No screens detected');
+  // }
 
   return JSON.stringify({
     ...general,
-    screens,
+    // screens,
     bounds
   }, undefined, 2);
 }

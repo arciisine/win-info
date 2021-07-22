@@ -20,26 +20,26 @@ func getHighestResolution(id: CGDirectDisplayID) -> (width:Int, height:Int) {
     return (width: width, height: height);
 }
 
-func getScreens(bounds: CGRect) -> [(index:Int, bounds:CGRect, native:(width:Int, height:Int))]? {
-    var index = 0
-    var out: [(index:Int, bounds:CGRect, native:(width:Int, height:Int))] = [];
-    for screen in NSScreen.screens
-    {
-      let displayID = screen.deviceDescription[NSDeviceDescriptionKey("NSScreenNumber")] as! uint;
-      let screenFrame = CGDisplayBounds(displayID);
+// func getScreens(bounds: CGRect) -> [(index:Int, bounds:CGRect, native:(width:Int, height:Int))]? {
+//     var index = 0
+//     var out: [(index:Int, bounds:CGRect, native:(width:Int, height:Int))] = [];
+//     for screen in NSScreen.screens
+//     {
+//       let displayID = screen.deviceDescription[NSDeviceDescriptionKey("NSScreenNumber")] as! uint;
+//       let screenFrame = CGDisplayBounds(displayID);
 
-      if (screenFrame.intersects(bounds))
-      {
-        let size = getHighestResolution(id: displayID);
-        out.append((index: index, bounds: screenFrame, native: size))
-      }
-      index += 1
-    }
-    if (out.count == 0) {
-      return nil;
-    }
-    return out;
-}
+//       if (screenFrame.intersects(bounds))
+//       {
+//         let size = getHighestResolution(id: displayID);
+//         out.append((index: index, bounds: screenFrame, native: size))
+//       }
+//       index += 1
+//     }
+//     if (out.count == 0) {
+//       return nil;
+//     }
+//     return out;
+// }
 
 func getPrimaryWindow(pid: pid_t) throws -> (window:[String: Any], bounds:CGRect) {
   let windows = CGWindowListCopyWindowInfo([.optionOnScreenOnly, .excludeDesktopElements], kCGNullWindowID) as! [[String: Any]]
@@ -80,11 +80,11 @@ func getPid() -> pid_t {
 
 func getConfig(pid: pid_t) throws -> String {
   let (window, bounds) = try! getPrimaryWindow(pid: pid);
-  let screens = getScreens(bounds: bounds)
+  // let screens = getScreens(bounds: bounds)
 
-  if screens == nil {
-    throw "No screens for window"
-  }
+  // if screens == nil {
+  //   throw "No screens for window"
+  // }
 
   let ref = NSRunningApplication(processIdentifier: pid)!;
 

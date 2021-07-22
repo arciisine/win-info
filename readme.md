@@ -28,17 +28,17 @@ const * as winInfo = require('@arcsine/win-info');
 			height: 900,
 			width: 1440
 		},
-		screens: [{
-			x: 0,
-			y: 0, 
-			height: 920,
-			width: 1440,
-			index: 0,
-			scale: {
-				width: 1,
-				height: 1
-			}
-		}],
+		// screens: [{
+		// 	x: 0,
+		// 	y: 0, 
+		// 	height: 920,
+		// 	width: 1440,
+		// 	index: 0,
+		// 	scale: {
+		// 		width: 1,
+		// 		height: 1
+		// 	}
+		// }],
 		owner: {
 			name: 'Google Chrome',
 			processId: 310,

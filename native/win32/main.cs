@@ -13,30 +13,30 @@ namespace WinInfo
       int processId, 
       string processFileName, 
       RECT bounds, 
-      List<ScreenInfo> screens
+      // List<ScreenInfo> screens
     ) { 
 
       System.Threading.Thread.CurrentThread.CurrentCulture = System.Globalization.CultureInfo.InvariantCulture;
 
-      string screenData = 
-        String.Join(",\n",
-          screens.ConvertAll(screen => 
-            String.Format(@"
-        {{
-          ""x"": {0},
-          ""y"": {1},
-          ""width"": {2},
-          ""height"": {3},
-          ""index"": {4},
-          ""scale"": {{
-            ""x"": {5:0.00},
-            ""y"": {6:0.00}
-          }}
-        }}", 
-          screen.WorkArea.Left, screen.WorkArea.Top, 
-          screen.WorkArea.Right - screen.WorkArea.Left, screen.WorkArea.Bottom - screen.WorkArea.Top,
-          screen.Index, screen.Scale[0], screen.Scale[1]
-          )));        
+      // string screenData = 
+      //   String.Join(",\n",
+      //     screens.ConvertAll(screen => 
+      //       String.Format(@"
+      //   {{
+      //     ""x"": {0},
+      //     ""y"": {1},
+      //     ""width"": {2},
+      //     ""height"": {3},
+      //     ""index"": {4},
+      //     ""scale"": {{
+      //       ""x"": {5:0.00},
+      //       ""y"": {6:0.00}
+      //     }}
+      //   }}", 
+      //     screen.WorkArea.Left, screen.WorkArea.Top, 
+      //     screen.WorkArea.Right - screen.WorkArea.Left, screen.WorkArea.Bottom - screen.WorkArea.Top,
+      //     screen.Index, screen.Scale[0], screen.Scale[1]
+      //     )));        
 
        return  String.Format(@"{{
     ""title"": ""{0}"",
@@ -46,7 +46,6 @@ namespace WinInfo
         ""processId"": {3},
         ""path"": ""{4}""
     }},
-    ""screens"": [ {5} ],
     ""bounds"": {{
         ""x"": {6},
         ""y"": {7},
@@ -59,7 +58,7 @@ namespace WinInfo
         Path.GetFileName(processFileName), 
         processId,
         processFileName,
-        screenData,
+        // screenData,
         bounds.Left, bounds.Top, 
         bounds.Right-bounds.Left, bounds.Bottom-bounds.Top);
     }
@@ -80,7 +79,7 @@ namespace WinInfo
 
       RECT bounds = Utils.getBounds(processId);
 
-      List<ScreenInfo> screens = Utils.getScreens(bounds);
+      // List<ScreenInfo> screens = Utils.getScreens(bounds);
 
       System.Console.WriteLine(Entrypoint.generateOutput(
         windowTitle, 
@@ -88,7 +87,7 @@ namespace WinInfo
         processId, 
         processFileName, 
         bounds, 
-        screens
+        // screens
       ));
     }
   }

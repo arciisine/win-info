@@ -1,4 +1,11 @@
 # @arcsine/win-info
+
+## This fork removes the `screens` lookup and return object.
+
+ I didn't need it for my project and it adds some [complexity/error potential on win32](https://github.com/arciisine/win-info/issues/2).
+
+---
+
 Forked from [active-win](https://github.com/sindresorhus/active-win), by Sindre Sorhus
 
 Get metadata about the window backing a process PID, or the [active window](https://en.wikipedia.org/wiki/Active_window). (title, id, bounds, owner, etc)

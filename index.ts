@@ -84,19 +84,19 @@ function getCmdWithArgs(arg?: string | number, platform?: string) {
 class WinInfo {
   static async getByPid(pid: number, platform?: Platform) {
     const { cmd, args } = getCmdWithArgs(pid, platform);
-    return parseJSON((await execFile(cmd, args, { encoding: 'utf8' })).stdout) as Response;
+    return parseJSON((await execFile(cmd, args, { encoding: 'utf8', env: process.env })).stdout) as Response;
   }
   static async getActive(platform?: Platform) {
     const { cmd, args } = getCmdWithArgs('active', platform);
-    return parseJSON((await execFile(cmd, args, { encoding: 'utf8' })).stdout) as Response;
+    return parseJSON((await execFile(cmd, args, { encoding: 'utf8', env: process.env })).stdout) as Response;
   }
   static getByPidSync(pid: number, platform?: Platform) {
     const { cmd, args } = getCmdWithArgs(pid, platform);
-    return parseJSON((child_process.execFileSync(cmd, args, { encoding: 'utf8' }))) as Response;
+    return parseJSON((child_process.execFileSync(cmd, args, { encoding: 'utf8', env: process.env }))) as Response;
   }
   static getActiveSync(platform?: Platform) {
     const { cmd, args } = getCmdWithArgs('active', platform);
-    return parseJSON((child_process.execFileSync(cmd, args, { encoding: 'utf8' }))) as Response;
+    return parseJSON((child_process.execFileSync(cmd, args, { encoding: 'utf8', env: process.env }))) as Response;
   }
 }
 
